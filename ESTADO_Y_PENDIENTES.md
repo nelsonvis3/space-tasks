@@ -11,6 +11,13 @@ Actualizado: **23 de octubre de 2026**. Este documento reúne el trabajo realiza
 - Actualmente es una aplicación web con servidor Node/SQLite. **Todavía no existe un instalador de escritorio AppImage/Flatpak.**
 - No se desplegó hosting, no se publicaron paquetes, no se conectaron cuentas externas y no se realizó commit ni push.
 
+## Distribución (24/10/2026)
+
+- **Escritorio (versión completa):** Electron 44.9.3 en `desktop/main.mjs`. La interfaz se sirve desde `space://app` y `/api/` lo responde el mismo código del servidor dentro del proceso, sin abrir puertos. Base SQLite, backups y sesión quedan en el perfil del usuario con permisos 600. Cuentas locales, historial, biblioteca de PDF y recuperación funcionan igual que en el servidor. Pendiente: paquete Flatpak `io.github.nelsonvis3.SpaceTasks`.
+- **Pruebas del escritorio** (`npm run runtime -- run test:desktop`, después de `build`): varias cuentas aisladas, sesión que sobrevive a un reinicio, sección legal, bucles y música propia que siguen tras reiniciar, biblioteca de PDF (incluido uno de 8 MB) y WebGPU disponible. Con `SPACE_MODEL_TEST=1` corre OCR y traducción reales; con `SPACE_AI_TEST=1`, el asistente descarga el modelo y responde. Todo verificado el 24/10/2026.
+- **Legal y ayuda** (plegado dentro de **Tu cuenta**): política de privacidad, reportar un problema (GitHub Issues), código fuente y licencias.
+- **Web (demo):** GitHub Pages en `https://nelsonvis3.github.io/space-tasks/`, compilada por `.github/workflows/pages.yml` con `SPACE_BASE=/space-tasks/` y `VITE_DEVICE_ONLY=1`: sin cuentas, todo queda en el navegador.
+
 ## 2. Funciones implementadas
 
 ### Productividad e interfaz

@@ -28,6 +28,7 @@
     "verify": "node scripts/verify.mjs",
     "verify:release": "node scripts/verify.mjs --release",
     "test:e2e": "PLAYWRIGHT_BROWSERS_PATH=.cache/ms-playwright playwright test",
+    "test:desktop": "PLAYWRIGHT_BROWSERS_PATH=.cache/ms-playwright playwright test -c playwright.desktop.config.mjs",
     "test:e2e:list": "PLAYWRIGHT_BROWSERS_PATH=.cache/ms-playwright playwright test --list --reporter=list",
     "test:translation:real": "PLAYWRIGHT_BROWSERS_PATH=.cache/ms-playwright SPACE_MODEL_TEST=1 playwright test",
     "pretest:e2e": "node scripts/create-pdf-fixtures.mjs",

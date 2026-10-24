@@ -4,6 +4,8 @@ import { Camera, Save, Settings2, Trash2, UserRound, X } from 'lucide-react'
 import { t } from './i18n'
 import type { Language } from './i18n'
 import { useAccount } from './account/AuthGate'
+import { asset } from './paths'
+const REPOSITORY='https://github.com/nelsonvis3/space-tasks'
 export type UserProfile = { name: string; goal: string; photo?: string }
 export function initials(name:string){return name.trim().split(/\s+/).slice(0,2).map(s=>s[0]?.toUpperCase()||'').join('')||'ME'}
 // Photos are re-encoded by a canvas, so only small raster data URLs are ever stored or synchronized.
@@ -32,5 +34,15 @@ export function ProfileModal({language,profile,onSave,onClose,onCustomize}:{lang
     {photoError&&<p className="assistant-error" role="alert">{T(photoError)}</p>}
     <form onSubmit={submit}><label htmlFor="display-name">{T('Display name')}</label><input id="display-name" maxLength={48} required value={name} onChange={event=>setName(event.target.value)} placeholder={T('Explorer')}/><label htmlFor="user-goal">{T('Your goal')}</label><input id="user-goal" maxLength={110} value={goal} onChange={event=>setGoal(event.target.value)} placeholder={T('Learn to code')}/><small className="profile-note">{T('Your profile follows your workspace settings.')}</small><div className="modal-actions"><button type="button" className="secondary-button" onClick={onCustomize}><Settings2 size={16}/>{T('Customize your space')}</button><button type="submit" className="primary-button"><Save size={16}/>{T('Save profile')}</button></div></form>
     <div className="account-section">{panel}</div>
+    <details className="legal-panel"><summary>{T('Legal and help')}</summary>
+      <h3>{T('Privacy policy')}</h3>
+      <p>{T('SPACE Tasks has no ads, analytics or tracking, and its developer receives none of your data.')}</p>
+      <p>{T('In the desktop app, your accounts, tasks, settings, PDF files, music and backups are stored only on this computer.')}</p>
+      <p>{T('In the web demo, everything stays in this browser. Clearing the browser’s data deletes it.')}</p>
+      <p>{T('Some features download files the first time you use them: translation and assistant models from Hugging Face, assistant libraries from GitHub and OCR language data from projectnaptha.com. Like any download, those services see your IP address; your documents, tasks and questions are never sent.')}</p>
+      <p>{T('You can export your workspace at any time, and delete your account and all its data from Security.')}</p>
+      <small>{T('Last updated: October 24, 2026')}</small>
+      <div className="legal-links"><a className="text-link" href={`${REPOSITORY}/issues/new`} target="_blank" rel="noreferrer">{T('Report a problem')}</a><a className="text-link" href={REPOSITORY} target="_blank" rel="noreferrer">{T('Source code')}</a><a className="text-link" href={asset('/licenses/THIRD_PARTY_NOTICES.txt')} target="_blank" rel="noreferrer">{T('Licenses')}</a></div>
+    </details>
   </div></div>
 }

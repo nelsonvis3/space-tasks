@@ -9,13 +9,13 @@ A free, open-source productivity app: tasks, calendar, a PDF reader and music. I
 - **Tasks and planning**: workspaces, priorities, calendar and progress stats.
 - **PDF reader**: local OCR and translation in seven languages.
 - **On-device AI assistant**: WebLLM on WebGPU; no AI provider sees your questions.
-- **Accounts with sync**: offline-first, with version history and conflict handling.
+- **Private accounts**: password-protected, with version history, recovery and automatic backups, all on your computer.
 
 **Engineering highlights:** strict CSP with no CDN scripts (runtimes pinned by sha512), rate-limited auth with scrypt and CSRF protection, verified SQLite backups, and 88 unit plus Playwright tests on Chromium and Firefox, including accessibility checks.
 
 **Stack:** React 19 · TypeScript · Vite · Node 24 (built-in SQLite) · Electron · Playwright
 
-**Status:** early release. The public web version and the Flathub package are in progress.
+**Status:** early release. Try the [live demo](https://nelsonvis3.github.io/space-tasks/) in your browser (data stays on your device); the complete desktop app is coming to Flathub.
 
 ## Run it
 
