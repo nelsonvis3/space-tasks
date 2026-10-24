@@ -75,8 +75,9 @@ test('OCR and translation run on the desktop with real models',async()=>{
  test.skip(process.env.SPACE_MODEL_TEST!=='1','Downloads models: run with SPACE_MODEL_TEST=1')
  const {app,page}=await open(profileDir())
  try{
-  await page.evaluate(()=>{for(const[key,value]of Object.entries({'orbit:onboarding:v1':'done','orbit-tasks:language:v1':'es','orbit-tasks:profile:v1':JSON.stringify({name:'OCR',goal:''})}))localStorage.setItem(key,value)});await page.reload()
-  await page.getByRole('button',{name:t('es','Continue on this device'),exact:true}).click();await page.getByRole('navigation',{name:t('es','Main navigation')}).getByRole('button',{name:t('es','Study and activities'),exact:true}).click();await page.getByRole('button',{name:new RegExp(t('es','My PDF library'))}).click()
+  // Desktop accounts are local, so OCR runs in a normal account with the interface switched to Spanish.
+  await register(page,'scanner','Scanner');await page.locator('.language-picker select').selectOption('es')
+  await page.getByRole('navigation',{name:t('es','Main navigation')}).getByRole('button',{name:t('es','Study and activities'),exact:true}).click();await page.getByRole('button',{name:new RegExp(t('es','My PDF library'))}).click()
   await page.locator('input[type=file]').setInputFiles({name:'scan-notes.pdf',mimeType:'application/pdf',buffer:await scannedPdf(page)})
   const {text}=await extractAndTranslate(page,{read:t('es','Read'),action:t('es','Extract and translate')})
   expect(text).toMatch(/estudi|repas|temas|minutos/i);expect(text).toContain('25');expect(text).toContain('3')

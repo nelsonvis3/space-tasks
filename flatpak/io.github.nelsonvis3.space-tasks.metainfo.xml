@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.nelsonvis3.space-tasks</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-only</project_license>
+  <name>SPACE Tasks</name>
+  <summary>Plan your day with tasks, a PDF reader and on-device AI</summary>
+  <developer id="io.github.nelsonvis3">
+    <name>Nelson Sivisstum</name>
+  </developer>
+  <description>
+    <p>SPACE Tasks is a free productivity app that keeps everything on your computer. Its AI assistant, OCR and translation run locally, so there are no subscriptions, no ads and no tracking.</p>
+    <ul>
+      <li>Tasks with workspaces, priorities, a calendar and progress statistics</li>
+      <li>A PDF library with local OCR and translation in seven languages</li>
+      <li>An AI assistant that runs on your GPU; your questions never reach an AI provider</li>
+      <li>Lo-fi loops for focus, plus your own music</li>
+      <li>Password-protected accounts with version history, recovery and automatic backups</li>
+    </ul>
+    <p>The interface is available in English, Spanish, Portuguese, French, German, Italian and Japanese. Models for translation and the assistant are downloaded the first time you use those features.</p>
+  </description>
+  <launchable type="desktop-id">io.github.nelsonvis3.space-tasks.desktop</launchable>
+  <url type="homepage">https://github.com/nelsonvis3/space-tasks</url>
+  <url type="bugtracker">https://github.com/nelsonvis3/space-tasks/issues</url>
+  <url type="vcs-browser">https://github.com/nelsonvis3/space-tasks</url>
+  <screenshots>
+    <screenshot type="default">
+      <caption>An overview of your day</caption>
+      <image>https://raw.githubusercontent.com/nelsonvis3/space-tasks/main/docs/screenshots/overview.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>The task board</caption>
+      <image>https://raw.githubusercontent.com/nelsonvis3/space-tasks/main/docs/screenshots/tasks.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>The calendar</caption>
+      <image>https://raw.githubusercontent.com/nelsonvis3/space-tasks/main/docs/screenshots/calendar.png</image>
+    </screenshot>
+  </screenshots>
+  <branding>
+    <color type="primary" scheme_preference="light">#c9dcd1</color>
+    <color type="primary" scheme_preference="dark">#0c0f15</color>
+  </branding>
+  <content_rating type="oars-1.1"/>
+  <requires>
+    <display_length compare="ge">360</display_length>
+  </requires>
+  <supports>
+    <control>pointing</control>
+    <control>keyboard</control>
+    <control>touch</control>
+  </supports>
+  <releases>
+    <release version="3.0.0" date="2026-10-24">
+      <description>
+        <p>First desktop release.</p>
+      </description>
+    </release>
+  </releases>
+</component>

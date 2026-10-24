@@ -1,0 +1,86 @@
+id: io.github.nelsonvis3.space-tasks
+runtime: org.freedesktop.Platform
+runtime-version: '26.08'
+sdk: org.freedesktop.Sdk
+base: org.electronjs.Electron2.BaseApp
+base-version: '26.08'
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.node24
+command: space-tasks
+separate-locales: false
+finish-args:
+  - --share=ipc
+  - --socket=wayland
+  - --socket=fallback-x11
+  # GPU for the on-device assistant (WebGPU) and smooth rendering.
+  - --device=dri
+  - --socket=pulseaudio
+  # Translation, assistant and OCR models are downloaded the first time they are used.
+  - --share=network
+modules:
+  - name: space-tasks
+    buildsystem: simple
+    build-options:
+      append-path: /usr/lib/sdk/node24/bin
+      env:
+        XDG_CACHE_HOME: /run/build/space-tasks/flatpak-node/cache
+        npm_config_cache: /run/build/space-tasks/flatpak-node/npm-cache
+        npm_config_offline: 'true'
+        # The Electron zip comes from generated-sources.json and is unpacked below.
+        ELECTRON_SKIP_BINARY_DOWNLOAD: '1'
+    sources:
+      - type: dir
+        path: ..
+        skip:
+          - .git
+          - .cache
+          - node_modules
+          - dist
+          - data
+          - backups
+          - .local-books
+          - test-results
+          - playwright-report
+          - public/vendor
+          - flatpak/.flatpak-builder
+      - generated-sources.json
+      # Browser runtimes served from /vendor, pinned to the same integrity as scripts/vendor.mjs.
+      - type: file
+        url: https://registry.npmjs.org/pdfjs-dist/-/pdfjs-dist-5.4.149.tgz
+        sha512: 5def3fd453091103d4552b62db90250e9c29526d9001598d3a914fd1221a85a3c838a04a20269e7dbce880b7707b2dd7186a1a3f82dbf70aa2c367bd26aa742c
+        dest: .cache/vendor
+        dest-filename: pdfjs-dist-5.4.149.tgz
+      - type: file
+        url: https://registry.npmjs.org/tesseract.js/-/tesseract.js-6.0.1.tgz
+        sha512: fec3ef32fac2b60c673510a36d361bafb051bb4c9f583b0c650d9afd3e5a37f2f5b7cc1440dead4d6bfaa7a170ce9a04040d23acdd940f6497e1040545da036c
+        dest: .cache/vendor
+        dest-filename: tesseract.js-6.0.1.tgz
+      - type: file
+        url: https://registry.npmjs.org/tesseract.js-core/-/tesseract.js-core-6.0.0.tgz
+        sha512: d509dc9bff6828cef182b417657341f8d461d7daa25c687196b47c13015b2b949a51b3d99d2e4e32d3ff821b6a7dddb786caf566f65b6637ae00670cc5dfe8a0
+        dest: .cache/vendor
+        dest-filename: tesseract.js-core-6.0.0.tgz
+      - type: file
+        url: https://registry.npmjs.org/@huggingface/transformers/-/transformers-3.8.1.tgz
+        sha512: b6c4e4e33563226a9daa34bcfc0399836c8d2ddd73f52e6ffbba143e95da6ac0d1c040e107ec678252b593971a776ea52f9fd921a791120596cb46ecf72f693c
+        dest: .cache/vendor
+        dest-filename: '@huggingface__transformers-3.8.1.tgz'
+      - type: file
+        url: https://registry.npmjs.org/@mlc-ai/web-llm/-/web-llm-0.2.85.tgz
+        sha512: 0b0522480bc30989e60199693cc92eacf1c37c12eae9fbdd441def460a00f3de21446fd5fc149e63d6e6326ea22085395698c9c5f6ff74b3e9257d9ab742fdaf
+        dest: .cache/vendor
+        dest-filename: '@mlc-ai__web-llm-0.2.85.tgz'
+    build-commands:
+      - npm ci --offline
+      - npm run build
+      # Electron itself, from the zip listed in generated-sources.json for this architecture.
+      - install -d /app/main
+      - unzip -q "$(find flatpak-node/cache -name 'electron-v*-linux-*.zip' ! -name '*-debug.zip' ! -name '*-symbols.zip' | head -n 1)" -d /app/main
+      # The app needs only the built interface, the shell and the server code: no node_modules at runtime.
+      - install -d /app/main/resources/app
+      - cp -r dist desktop server package.json /app/main/resources/app/
+      - install -Dm755 flatpak/space-tasks.sh /app/bin/space-tasks
+      - install -Dm644 flatpak/io.github.nelsonvis3.space-tasks.desktop -t /app/share/applications
+      - install -Dm644 flatpak/io.github.nelsonvis3.space-tasks.metainfo.xml -t /app/share/metainfo
+      - install -Dm644 desktop/icons/io.github.nelsonvis3.space-tasks.svg -t /app/share/icons/hicolor/scalable/apps
+      - for size in 64 128 256 512; do install -Dm644 desktop/icons/$size.png /app/share/icons/hicolor/${size}x${size}/apps/io.github.nelsonvis3.space-tasks.png; done

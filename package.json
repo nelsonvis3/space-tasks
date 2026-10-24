@@ -4,6 +4,7 @@
   "version": "3.0.0",
   "type": "module",
   "main": "desktop/main.mjs",
+  "desktopName": "io.github.nelsonvis3.space-tasks.desktop",
   "scripts": {
     "dev": "vite",
     "runtime:install": "node scripts/install-runtime.mjs",

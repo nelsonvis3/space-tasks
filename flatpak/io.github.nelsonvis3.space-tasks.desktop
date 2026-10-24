@@ -1,0 +1,25 @@
+[Desktop Entry]
+Type=Application
+Name=SPACE Tasks
+GenericName=Task Planner
+GenericName[es]=Planificador de tareas
+GenericName[pt]=Planejador de tarefas
+GenericName[fr]=Planificateur de tâches
+GenericName[de]=Aufgabenplaner
+GenericName[it]=Pianificatore di attività
+GenericName[ja]=タスクプランナー
+Comment=Tasks, calendar, PDF reader and music, with AI that runs on your computer
+Comment[es]=Tareas, calendario, lector de PDF y música, con IA que funciona en tu computadora
+Comment[pt]=Tarefas, calendário, leitor de PDF e música, com IA que roda no seu computador
+Comment[fr]=Tâches, calendrier, lecteur PDF et musique, avec une IA qui tourne sur votre ordinateur
+Comment[de]=Aufgaben, Kalender, PDF-Reader und Musik, mit KI, die auf deinem Computer läuft
+Comment[it]=Attività, calendario, lettore PDF e musica, con IA che funziona sul tuo computer
+Comment[ja]=タスク、カレンダー、PDFリーダー、音楽。AIはあなたのコンピューター上で動作します
+Exec=space-tasks
+Icon=io.github.nelsonvis3.space-tasks
+Terminal=false
+Categories=Office;ProjectManagement;
+Keywords=tasks;todo;planner;calendar;focus;pdf;ocr;translation;lofi;
+Keywords[es]=tareas;pendientes;planificador;calendario;enfoque;pdf;ocr;traducción;lofi;
+StartupNotify=true
+StartupWMClass=io.github.nelsonvis3.space-tasks
