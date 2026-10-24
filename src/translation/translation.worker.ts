@@ -4,10 +4,11 @@ import type {Pipeline} from './modelAdapter'
 import {inferTranslation} from './modelAdapter'
 import {translateDocument,translationModel} from './rules'
 import {detectedLanguage} from '../productivity/translation'
+import {asset} from '../paths'
 type Runtime={env:{allowLocalModels:boolean;useBrowserCache:boolean;backends:{onnx:{wasm:{numThreads:number;proxy:boolean;wasmPaths:string}}}};pipeline:(task:'translation',model:string,options:{device:'wasm';dtype:'q8';progress_callback:(progress:{status:string;file?:string;loaded?:number;total?:number})=>void})=>Promise<Pipeline>}
 const port=self as unknown as {postMessage:(value:TranslationResponse)=>void;onmessage:((event:MessageEvent<TranslationRequest>)=>void)|null}
 let runtime:Promise<Runtime>|null=null,pipeline:Pipeline|null=null,loadedModel='',busy=false
-function loadRuntime(){if(!runtime){const url='/vendor/@huggingface/transformers@3.8.1/dist/transformers.min.js';runtime=import(/* @vite-ignore */url).then(module=>{const api=module as Runtime;api.env.allowLocalModels=false;api.env.useBrowserCache=true;api.env.backends.onnx.wasm.numThreads=1;api.env.backends.onnx.wasm.proxy=false;api.env.backends.onnx.wasm.wasmPaths=new URL('/vendor/@huggingface/transformers@3.8.1/dist/',self.location.href).href;return api}).catch(error=>{runtime=null;throw error})}return runtime}
+function loadRuntime(){if(!runtime){const url=asset('/vendor/@huggingface/transformers@3.8.1/dist/transformers.min.js');runtime=import(/* @vite-ignore */url).then(module=>{const api=module as Runtime;api.env.allowLocalModels=false;api.env.useBrowserCache=true;api.env.backends.onnx.wasm.numThreads=1;api.env.backends.onnx.wasm.proxy=false;api.env.backends.onnx.wasm.wasmPaths=new URL(asset('/vendor/@huggingface/transformers@3.8.1/dist/'),self.location.href).href;return api}).catch(error=>{runtime=null;throw error})}return runtime}
 port.onmessage=async({data})=>{
  if(busy){port.postMessage({id:data.id,type:'error',message:'Local translation is busy. Please wait for the current page.'});return}busy=true
  const model=translationModel(data.source,data.target),files=new Map<string,{loaded:number;total:number}>();let phase:'load'|'translate'='load',heartbeat=0

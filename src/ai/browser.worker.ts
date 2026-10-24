@@ -1,4 +1,5 @@
 import type {WorkerRequest,WorkerResponse,ChatMessage} from './browserProtocol'
+import {asset} from '../paths'
 type Engine={chat:{completions:{create:(request:{messages:ChatMessage[];stream:true;max_tokens:number;temperature:number})=>Promise<AsyncIterable<{choices:{delta:{content?:string};finish_reason?:string}[]}>>}};interruptGenerate:()=>void;unload:()=>Promise<void>}
 type WebLLM={CreateMLCEngine:(model:string,config:{initProgressCallback:(p:{progress:number})=>void})=>Promise<Engine>}
 const port=self as unknown as {postMessage:(value:WorkerResponse)=>void;onmessage:((event:MessageEvent<WorkerRequest>)=>void)|null}
@@ -7,7 +8,7 @@ port.onmessage=async({data})=>{
  if(data.type==='cancel'){engine?.interruptGenerate();return}
  try{
   if(data.type==='init'){
-   const url='/vendor/@mlc-ai/web-llm@0.2.85/lib/index.js'
+   const url=asset('/vendor/@mlc-ai/web-llm@0.2.85/lib/index.js')
    const runtime=await import(/* @vite-ignore */url) as WebLLM
    engine=await runtime.CreateMLCEngine(data.model,{initProgressCallback:p=>port.postMessage({id:data.id,type:'progress',progress:Math.max(0,Math.min(1,p.progress))})})
    port.postMessage({id:data.id,type:'ready'});return

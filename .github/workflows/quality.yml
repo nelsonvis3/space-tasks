@@ -16,6 +16,7 @@ jobs:
     timeout-minutes: 35
     env:
       PLAYWRIGHT_BROWSERS_PATH: .cache/ms-playwright
+      ELECTRON_SKIP_BINARY_DOWNLOAD: '1'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
