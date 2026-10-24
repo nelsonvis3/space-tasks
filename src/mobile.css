@@ -1,0 +1,55 @@
+/* Shared safe areas apply to browser-installed and future native shells. */
+:root{--safe-top:env(safe-area-inset-top,0px);--safe-right:env(safe-area-inset-right,0px);--safe-bottom:env(safe-area-inset-bottom,0px);--safe-left:env(safe-area-inset-left,0px)}
+html{scroll-padding-top:145px;scroll-padding-bottom:180px}
+.space-app .space-topbar{padding-top:var(--safe-top);height:calc(83px + var(--safe-top))}
+.space-app .space-content{padding-left:max(25px,var(--safe-left));padding-right:max(25px,var(--safe-right))}
+.space-app .dock-position-bottom{bottom:calc(12px + var(--safe-bottom))}
+.space-app .dock-position-top{top:calc(92px + var(--safe-top))}
+.modal-overlay{padding:max(12px,var(--safe-top)) max(12px,var(--safe-right)) max(12px,var(--safe-bottom)) max(12px,var(--safe-left))}
+.auth-card,.space-app main,.space-app fieldset{min-width:0}
+.space-app h1,.space-app h2{ text-wrap:balance }
+.space-app .modal-actions{flex-wrap:wrap}
+.space-app .setting-label>label{min-width:0}
+.space-app .calendar-layout>*,.space-app .overview-layout>*,.space-app .page-header>div{min-width:0}
+.space-app .schedule-task>span,.space-app .today-task>span{min-width:0;overflow-wrap:anywhere}
+.space-app .calendar-panel>header{flex-wrap:wrap;gap:12px}
+.space-app .calendar-panel>header>div{max-width:100%;flex-wrap:wrap}
+.space-app .calendar-grid{grid-template-columns:repeat(7,minmax(0,1fr))}
+.space-app .calendar-day{min-width:0}
+
+@media(max-width:600px){
+ .space-app .space-topbar{height:auto;min-height:112px;gap:4px 12px;flex-wrap:wrap;padding:calc(5px + var(--safe-top)) max(12px,var(--safe-right)) 6px max(12px,var(--safe-left))}
+ .space-app .workspace-switch{margin-left:auto;flex:1;justify-content:flex-end;min-width:0}
+ .space-app .workspace-switch select{max-width:calc(100vw - 118px);font-size:16px}
+ .space-app .workspace-switch>button{display:inline-grid}
+ .space-app .topbar-actions{flex:0 0 100%;justify-content:space-between;margin:0;gap:0}
+ .space-app .topbar-actions>button.ghost-icon,.space-app .profile-button{min-width:44px;width:44px;min-height:44px;height:44px;padding:10px}
+ .space-app .topbar-actions .language-picker select{width:48px;min-height:44px;font-size:16px;padding:5px}
+ .space-app .space-content{padding:25px max(14px,var(--safe-right)) 30px max(14px,var(--safe-left))}
+ .space-app .dock-position-top{top:calc(122px + var(--safe-top))}
+ .space-app .dock-region{max-width:calc(100vw - 16px - var(--safe-left) - var(--safe-right))}
+ .space-app .bottom-dock{max-width:100%;overflow-x:auto;scrollbar-width:thin;overscroll-behavior-x:contain}
+ .space-app .dock-item{min-width:44px;min-height:44px;flex-shrink:0}
+ .space-app .dock-vertical .bottom-dock{overflow-x:hidden;overflow-y:auto;max-height:calc(100dvh - 160px - var(--safe-top) - var(--safe-bottom))}
+ .space-app .dock-vertical .dock-item{max-width:none}
+ .space-app .dock-reveal{min-width:44px;min-height:32px}
+ .space-app .compact-player{bottom:calc(100px + var(--safe-bottom))!important;right:max(14px,var(--safe-right))!important;max-width:calc(100vw - 28px - var(--safe-left) - var(--safe-right))}
+ .space-app[data-dock-position=top] .compact-player,.space-app[data-dock-position=left] .compact-player,.space-app[data-dock-position=right] .compact-player{bottom:calc(16px + var(--safe-bottom))!important}
+ .space-app{padding-bottom:calc(200px + var(--safe-bottom))}
+ .space-app[data-dock-position=top] .space-content{padding-top:115px}
+ .auth-screen{padding:calc(20px + var(--safe-top)) max(14px,var(--safe-right)) calc(20px + var(--safe-bottom)) max(14px,var(--safe-left))!important}
+ .auth-card{padding:24px}
+ .auth-card .auth-language{top:22px;right:22px}
+ .account-panel{max-height:calc(100dvh - 24px - var(--safe-top) - var(--safe-bottom))}
+}
+@media(pointer:coarse){
+ input:not([type=range]):not([type=checkbox]):not([type=color]),textarea,select{font-size:16px!important}
+ .space-app .ghost-icon,.space-app .reset-setting{min-width:44px;min-height:44px}
+ .space-app .action-primary,.space-app .action-secondary,.space-app .text-link,.auth-card button{min-height:44px;white-space:normal}
+ .space-app .compact-player button,.space-app .compact-player select{min-height:44px}
+ .space-app .checkbox-row{min-height:44px}
+ .space-app .task-search{min-width:0}
+ .space-app .task-search input{min-width:0;width:100%}
+ .space-app .dock-item:hover{transform:none}
+ .space-app .dock-tooltip{display:none}
+}

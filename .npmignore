@@ -1,0 +1,17 @@
+node_modules/
+dist/
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+.DS_Store
+data/
+backups/
+playwright-report/
+test-results/
+.cache/
+.local-books/
+public/pdfs/
+public/reading/
+public/vendor/
+*.tgz

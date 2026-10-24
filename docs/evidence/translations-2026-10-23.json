@@ -1,0 +1,42 @@
+[
+  {
+    "source": "Study for 25 minutes. Review 3 topics before you take a break.",
+    "target": "es",
+    "text": "Estudie por 25 minutos. Revise 3 temas antes de tomar un descanso."
+  },
+  {
+    "source": "Estudiá durante 25 minutos. Repasá 3 temas antes de descansar.",
+    "target": "en",
+    "text": "Study for 25 minutes. Review 3 topics before resting."
+  },
+  {
+    "source": "Study for 25 minutes. Review 3 topics before you take a break.",
+    "target": "ja",
+    "text": "勉強する25分間、休憩する前に3つのテーマを検討します。"
+  },
+  {
+    "source": "Study for 25 minutes. Review 3 topics before you take a break.",
+    "target": "fr",
+    "text": "Étudier pendant 25 minutes. Examiner 3 sujets avant de prendre une pause."
+  },
+  {
+    "source": "Study for 25 minutes. Review 3 topics before you take a break.",
+    "target": "pt",
+    "text": "Estude por 25 minutos. Revise 3 temas antes de fazer uma pausa."
+  },
+  {
+    "source": "Study for 25 minutes. Review 3 topics before you take a break.",
+    "target": "de",
+    "text": "Studieren Sie für 25 Minuten. Überprüfen Sie 3 Themen, bevor Sie eine Pause machen."
+  },
+  {
+    "source": "Study for 25 minutes. Review 3 topics before you take a break.",
+    "target": "it",
+    "text": "Studia per 25 minuti. Rivedi 3 argomenti prima di prendere una pausa."
+  },
+  {
+    "source": "Do not study for 3 hours without a break. Take a 5 minute break after 25 minutes.",
+    "target": "es",
+    "text": "No estudie durante 3 horas sin descanso. Tome un descanso de 5 minutos después de 25 minutos."
+  }
+]

@@ -1,0 +1,14 @@
+import {useEffect} from 'react'
+const SELECTOR='button:not([disabled]),a[href],input:not([disabled]):not([type=hidden]),select:not([disabled]),textarea:not([disabled]),[tabindex="0"]'
+/** Keep keyboard focus in the topmost dialog and restore its previous control. */
+export function useModalFocus(){useEffect(()=>{
+ let dialog:HTMLElement|null=null,previous:HTMLElement|null=document.activeElement as HTMLElement|null
+ const masked=new Map<HTMLElement,{inert:boolean;hidden:string|null}>()
+ function restore(){for(const[node,state]of masked){node.inert=state.inert;if(state.hidden===null)node.removeAttribute('aria-hidden');else node.setAttribute('aria-hidden',state.hidden)}masked.clear()}
+ function isolate(node:HTMLElement){let branch:HTMLElement=node;while(branch.parentElement){for(const sibling of branch.parentElement.children)if(sibling!==branch&&sibling instanceof HTMLElement){masked.set(sibling,{inert:sibling.inert,hidden:sibling.getAttribute('aria-hidden')});sibling.inert=true;sibling.setAttribute('aria-hidden','true')}branch=branch.parentElement;if(branch===document.body)break}}
+ function controls(){return dialog?Array.from(dialog.querySelectorAll<HTMLElement>(SELECTOR)).filter(node=>node.getClientRects().length):[]}
+ function update(){const next=Array.from(document.querySelectorAll<HTMLElement>('[role="dialog"][aria-modal="true"]')).at(-1)||null;if(next===dialog)return;restore();if(!dialog&&!next?.contains(document.activeElement))previous=document.activeElement as HTMLElement;dialog=next;if(dialog){dialog.tabIndex=-1;if(!dialog.contains(document.activeElement))(controls()[0]||dialog).focus();isolate(dialog)}else if(previous?.isConnected)previous.focus()}
+ function key(event:KeyboardEvent){if(event.defaultPrevented||event.key!=='Tab'||!dialog)return;const list=controls(),first=list[0],last=list.at(-1);if(!first){event.preventDefault();dialog.focus()}else if(event.shiftKey&&(document.activeElement===first||!dialog.contains(document.activeElement))){event.preventDefault();last?.focus()}else if(!event.shiftKey&&(document.activeElement===last||!dialog.contains(document.activeElement))){event.preventDefault();first.focus()}}
+ function focus(event:FocusEvent){if(dialog&&event.target instanceof Node&&!dialog.contains(event.target))(controls()[0]||dialog).focus();else if(!dialog&&event.target instanceof HTMLElement&&!event.target.closest('[role="dialog"]'))previous=event.target}
+ const observer=new MutationObserver(records=>{if(records.some(record=>[...record.addedNodes,...record.removedNodes].some(node=>node instanceof Element&&(node.matches('[role=dialog]')||node.querySelector('[role=dialog]')))))update()});observer.observe(document.body,{childList:true,subtree:true});document.addEventListener('keydown',key);document.addEventListener('focusin',focus);update();return()=>{observer.disconnect();document.removeEventListener('keydown',key);document.removeEventListener('focusin',focus);restore()}
+},[])}

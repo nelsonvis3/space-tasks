@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <title>SPACE Tasks</title>
+  <rect x="16" y="16" width="480" height="480" rx="112" fill="#0c0f15"/>
+  <svg x="76.0" y="103.7" width="360" height="304.6" viewBox="85 25 390 330" fill="none">
+  
+  <defs>
+    <clipPath id="globe"><circle cx="280" cy="190" r="91" /></clipPath>
+    <mask id="orbit-gap"><rect width="560" height="500" fill="white" /><ellipse cx="280" cy="190" rx="185" ry="35" transform="rotate(-24 280 190)" fill="none" stroke="black" stroke-width="22" /></mask>
+  </defs>
+  <g fill="white" stroke="white">
+    <g mask="url(#orbit-gap)"><circle cx="280" cy="190" r="145" fill="none" stroke-width="9" /><circle cx="280" cy="190" r="91" fill="none" stroke-width="9" />
+      <g clip-path="url(#globe)" stroke="none">
+        <path d="M282 98H380V282H282C256 282 249 277 251 272C255 267 291 268 300 263C303 258 257 260 250 255C245 250 292 252 304 247C310 242 251 243 246 239C241 233 300 235 312 230C319 224 243 226 241 220C240 215 308 216 319 211C325 205 238 208 238 201C237 195 316 196 324 191C328 184 237 187 238 180C239 174 320 176 324 169C327 162 240 166 241 159C242 153 315 155 316 148C316 142 246 146 248 139C251 133 305 136 305 129C305 123 257 128 263 121C269 115 297 118 296 111C294 106 274 109 282 98Z" />
+      </g>
+    </g>
+    <ellipse cx="280" cy="190" rx="185" ry="35" transform="rotate(-24 280 190)" fill="none" stroke-width="9" />
+  </g>
+  </svg>
+</svg>

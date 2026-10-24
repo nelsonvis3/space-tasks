@@ -1,0 +1,58 @@
+{
+  "name": "space-tasks",
+  "private": true,
+  "version": "3.0.0",
+  "type": "module",
+  "main": "desktop/main.mjs",
+  "scripts": {
+    "dev": "vite",
+    "runtime:install": "node scripts/install-runtime.mjs",
+    "runtime": "node scripts/use-runtime.mjs",
+    "build": "tsc -b && vite build",
+    "postbuild": "node scripts/compress.mjs && node scripts/check-distribution.mjs dist",
+    "preview": "vite preview",
+    "desktop": "electron .",
+    "typecheck": "tsc -b --pretty false",
+    "test:xp": "node --experimental-strip-types --test --test-isolation=none tests/gamification.test.mjs",
+    "test": "node --experimental-strip-types --test --test-isolation=none --test-reporter=spec tests/*.test.mjs",
+    "test:i18n": "node --experimental-strip-types scripts/audit-i18n.mjs",
+    "dev:server": "node --env-file-if-exists=.env server/index.mjs",
+    "start": "node --env-file-if-exists=.env server/index.mjs",
+    "pdfs:index": "node scripts/index-pdfs.mjs",
+    "predev": "node scripts/vendor.mjs && npm run licenses",
+    "prebuild": "node scripts/vendor.mjs && node scripts/check-distribution.mjs public && npm run licenses",
+    "licenses": "node scripts/licenses.mjs",
+    "vendor": "node scripts/vendor.mjs",
+    "audit:runtimes": "node scripts/audit-runtimes.mjs",
+    "backup": "node --env-file-if-exists=.env server/backup.mjs",
+    "verify": "node scripts/verify.mjs",
+    "verify:release": "node scripts/verify.mjs --release",
+    "test:e2e": "PLAYWRIGHT_BROWSERS_PATH=.cache/ms-playwright playwright test",
+    "test:e2e:list": "PLAYWRIGHT_BROWSERS_PATH=.cache/ms-playwright playwright test --list --reporter=list",
+    "test:translation:real": "PLAYWRIGHT_BROWSERS_PATH=.cache/ms-playwright SPACE_MODEL_TEST=1 playwright test",
+    "pretest:e2e": "node scripts/create-pdf-fixtures.mjs",
+    "doctor": "PLAYWRIGHT_BROWSERS_PATH=.cache/ms-playwright node scripts/doctor.mjs",
+    "test:browsers:install": "PLAYWRIGHT_BROWSERS_PATH=.cache/ms-playwright playwright install chromium firefox webkit",
+    "test:ocr:real": "PLAYWRIGHT_BROWSERS_PATH=.cache/ms-playwright SPACE_OCR_TEST=1 playwright test"
+  },
+  "dependencies": {
+    "lucide-react": "^0.468.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@types/node": "^22.15.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "electron": "44.9.3",
+    "playwright": "1.64.1",
+    "typescript": "~5.9.3",
+    "vite": "^8.3.5"
+  },
+  "engines": {
+    "node": ">=24.22.1 <25"
+  },
+  "license": "GPL-3.0-only"
+}

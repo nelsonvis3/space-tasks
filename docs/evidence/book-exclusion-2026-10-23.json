@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-23",
+  "check": "npm pack --dry-run --ignore-scripts; not a published release or installer",
+  "sourceFilesInDryRun": 219,
+  "personalBooksIncluded": 0,
+  "privateDataIncluded": 0,
+  "onlyPdf": "e2e/fixtures/notes.pdf",
+  "preservedOriginalAndDerivedFiles": 6,
+  "allPreservationHashesMatch": true,
+  "bundledCatalog": [],
+  "distPdfOrReadingFiles": 0,
+  "unitAndIntegrationTestsPassed": 76,
+  "browsers": {
+    "core": {
+      "startTime": "2026-10-24T00:46:55.423Z",
+      "duration": 118557.765,
+      "expected": 14,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "core-brave": {
+      "startTime": "2026-10-24T00:49:52.891Z",
+      "duration": 59535.701,
+      "expected": 6,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  }
+}

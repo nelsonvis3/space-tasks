@@ -1,0 +1,16 @@
+{
+  "source": "Study for 25 minutes. Review 3 topics before you take a break.",
+  "german": {
+    "rejected_model": "Xenova/m2m100_418M",
+    "rejected_output": "Studieren Sie 25 Minuten. Überprüfen Sie 3 Themen, bevor Sie einen Pauschal nehmen.",
+    "selected_model": "Xenova/opus-mt-en-de",
+    "selected_output": "Studieren Sie für 25 Minuten. Überprüfen Sie 3 Themen, bevor Sie eine Pause machen."
+  },
+  "japanese": {
+    "rejected_model": "Xenova/opus-mt-en-jap",
+    "rejected_output": "ウヅル の ため に アンミム を 打 ち, 威厳 を も っ て 木 の 前 に あ る よう に.",
+    "selected_model": "Xenova/m2m100_418M",
+    "selected_output": "勉強する25分間、休憩する前に3つのテーマを検討します。"
+  },
+  "scope": "Observed outputs of the real browser worker with synthetic test text. This is a regression example, not a certification of translation quality."
+}

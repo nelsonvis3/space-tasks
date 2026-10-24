@@ -1,0 +1,4 @@
+import type {Task} from './model'
+import type {Language} from '../i18n'
+import {t} from '../i18n'
+export function TaskRecovery({tasks,language,onRestore,onClose}:{tasks:Task[];language:Language;onRestore:(id:string)=>void;onClose:()=>void}){const T=(key:string)=>t(language,key);return <div className="modal-overlay"><section className="modal recovery-panel" role="dialog" aria-modal="true" aria-labelledby="recovery-title"><h2 id="recovery-title">{T('Recover deleted tasks')}</h2><p>{T('Deleted tasks stay here until you restore them. Their original IDs and one-time rewards are preserved.')}</p>{tasks.length?<ul>{tasks.map(task=><li key={task.id}><span>{task.title}</span><button className="action-secondary" onClick={()=>onRestore(task.id)}>{T('Restore')}</button></li>)}</ul>:<p>{T('No deleted tasks')}</p>}<button className="action-secondary" onClick={onClose}>{T('Close')}</button></section></div>}

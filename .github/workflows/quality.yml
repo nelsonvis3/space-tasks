@@ -1,0 +1,44 @@
+name: Quality
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      real_translation:
+        description: Download models and run actual local translation
+        type: boolean
+        default: false
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      PLAYWRIGHT_BROWSERS_PATH: .cache/ms-playwright
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      # The bundled FLAC music is decoded with ffmpeg for the sample-level audio checks.
+      - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg
+      - run: npm run verify
+      - run: npm audit --audit-level=high
+      - run: npm run audit:runtimes
+      - run: npx playwright install --with-deps chromium firefox webkit
+      - run: npm run test:e2e
+      - if: inputs.real_translation
+        run: npm run test:translation:real
+      - if: inputs.real_translation
+        run: npm run test:ocr:real
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-report
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore
