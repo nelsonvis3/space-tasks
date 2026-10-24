@@ -21,7 +21,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 24
+          # The server refuses Node releases older than .nvmrc; the runner's cached 24.x can lag behind.
+          node-version-file: .nvmrc
           cache: npm
       - run: npm ci
       # The bundled FLAC music is decoded with ffmpeg for the sample-level audio checks.
