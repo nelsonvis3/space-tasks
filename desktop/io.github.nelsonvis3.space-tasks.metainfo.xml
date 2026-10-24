@@ -51,6 +51,11 @@
     <control>touch</control>
   </supports>
   <releases>
+    <release version="3.0.1" date="2026-10-24">
+      <description>
+        <p>Linux AppImage, smoother navigation between rooms, and the study room keeps your open book, page and translation.</p>
+      </description>
+    </release>
     <release version="3.0.0" date="2026-10-24">
       <description>
         <p>First desktop release.</p>

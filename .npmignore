@@ -15,3 +15,4 @@ public/pdfs/
 public/reading/
 public/vendor/
 *.tgz
+release/

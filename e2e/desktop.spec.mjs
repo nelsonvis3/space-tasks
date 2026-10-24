@@ -3,13 +3,15 @@ import {test,expect,_electron} from 'playwright/test'
 import {createRequire} from 'node:module'
 import {mkdtempSync,readFileSync} from 'node:fs'
 import {tmpdir} from 'node:os'
-import {join} from 'node:path'
+import {join,resolve} from 'node:path'
 import {scannedPdf,extractAndTranslate} from './helpers.mjs'
 import {t} from '../src/i18n.ts'
 const root=join(import.meta.dirname,'..'),electron=createRequire(import.meta.url)('electron')
+// SPACE_DESKTOP_APP runs the suite against a packaged build, such as the AppImage in release/.
+const packaged=process.env.SPACE_DESKTOP_APP&&resolve(process.env.SPACE_DESKTOP_APP)
 const profileDir=()=>mkdtempSync(join(tmpdir(),'space-desktop-test-'))
 async function open(profile){
- const app=await _electron.launch({executablePath:electron,args:[root,`--user-data-dir=${profile}`],env:{...process.env,SPACE_DESKTOP_HIDDEN:'1'}})
+ const app=await _electron.launch({executablePath:packaged||electron,args:[...packaged?[]:[root],`--user-data-dir=${profile}`],env:{...process.env,SPACE_DESKTOP_HIDDEN:'1'}})
  const page=await app.firstWindow();const errors=[];page.on('pageerror',error=>errors.push(error.message));return{app,page,errors}
 }
 const room=(page,name)=>page.getByRole('navigation',{name:'Main navigation'}).getByRole('button',{name,exact:true}).click()

@@ -46,17 +46,6 @@ Los recorridos de biblioteca importada necesitan descargar PDF.js. La traducció
 
 Los fallos de audit por DNS no equivalen a cero vulnerabilidades. Una compilación correcta no demuestra calidad lingüística, audio audible, OCR correcto, HTTPS ni recuperación en el futuro alojamiento.
 
-## UFW
-
-El script solicitado para reactivar el firewall es independiente:
-
-```bash
-bash scripts/activar-ufw.sh --dry-run --web
-bash scripts/activar-ufw.sh --web
-```
-
-Conserva reglas, hace copia previa y permite TCP 80/443 solo con `--web`. Detecta el puerto de una conexión SSH actual o acepta `--ssh-port`. La ejecución real requiere `sudo` en la terminal del usuario. No se activó UFW desde Codex. Los [puertos publicados por Docker pueden eludir UFW](https://docs.docker.com/engine/network/packet-filtering-firewalls/#docker-and-ufw); este script no cambia las reglas de Docker.
-
 ## Verificación posterior al desbloqueo
 
 El 23 de octubre se volvieron a comprobar TCP local, DNS y HTTPS correctamente. Chromium y Brave arrancaron y ejecutaron recorridos reales. Firefox falló dentro del sandbox al abrir el perfil temporal, pero arrancó y ejecutó las pruebas al autorizarlas fuera del sandbox. No se cambió UFW ni el DNS. WebKit descargó su binario, pero no arrancó por bibliotecas ausentes en CachyOS (`libicu74`, `libxml2`, `libflite1`); no se ejecutó un comando apt sobre Arch ni se instalaron paquetes del sistema automáticamente.

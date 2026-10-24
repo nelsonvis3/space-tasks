@@ -1,7 +1,0 @@
-import {test} from 'node:test'
-import assert from 'node:assert/strict'
-import {mkdtempSync,writeFileSync,rmSync} from 'node:fs'
-import {tmpdir} from 'node:os'
-import {join} from 'node:path'
-import {spawnSync} from 'node:child_process'
-test('UFW simulation never executes firewall changes, keeps existing rules and protects SSH before activation',()=>{const directory=mkdtempSync(join(tmpdir(),'space-ufw-'));try{writeFileSync(join(directory,'ufw'),'#!/bin/sh\necho FIREWALL_WAS_EXECUTED >&2\nexit 99\n',{mode:0o755});const env={...process.env,PATH:`${directory}:${process.env.PATH}`,SSH_CONNECTION:'203.0.113.7 44000 192.0.2.2 2222'},run=args=>spawnSync('bash',['scripts/activar-ufw.sh',...args],{env,encoding:'utf8'});const plan=run(['--dry-run','--web']);assert.equal(plan.status,0,plan.stderr);assert.doesNotMatch(plan.stderr,/FIREWALL_WAS_EXECUTED/);assert.match(plan.stdout,/cp -a \/etc\/ufw/);assert.ok(plan.stdout.indexOf('limit 2222/tcp')<plan.stdout.indexOf('--force enable'));assert.match(plan.stdout,/allow 80\/tcp/);assert.match(plan.stdout,/allow 443\/tcp/);assert.doesNotMatch(plan.stdout,/ reset| default |iptables|daemon\.json/);const local=run(['--dry-run']);assert.equal(local.status,0);assert.doesNotMatch(local.stdout,/allow (80|443)\/tcp/);for(const port of ['0','65536','22; echo unsafe']){const invalid=run(['--dry-run','--ssh-port',port]);assert.equal(invalid.status,2);assert.doesNotMatch(invalid.stdout,/--force enable/)}}finally{rmSync(directory,{recursive:true,force:true})}})

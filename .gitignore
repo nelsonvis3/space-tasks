@@ -17,3 +17,4 @@ public/reading/
 public/vendor/
 *.tgz
 .flatpak-builder/
+release/

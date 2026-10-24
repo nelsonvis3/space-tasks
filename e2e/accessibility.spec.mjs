@@ -2,6 +2,8 @@ import {test,expect} from 'playwright/test'
 import AxeBuilder from '@axe-core/playwright'
 import {workspace,room,noOverflow} from './helpers.mjs'
 async function accessible(page,info,label){
+ // Measure contrast once the room and dock tooltip fade-ins have finished, not halfway through them.
+ await page.waitForFunction(()=>document.getAnimations().every(animation=>animation.playState!=='running'||!(animation.effect?.target?.id==='main-content'||animation.effect?.target?.classList.contains('dock-tooltip'))))
  const result=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa','wcag22aa']).analyze()
  if(result.violations.length)await info.attach(`${label}-accessibility.json`,{body:JSON.stringify(result.violations,null,2),contentType:'application/json'})
  expect(result.violations.map(v=>({id:v.id,impact:v.impact,nodes:v.nodes.map(n=>({target:n.target,summary:n.failureSummary}))})),label).toEqual([])

@@ -1,7 +1,7 @@
 {
   "name": "space-tasks",
   "private": true,
-  "version": "3.0.0",
+  "version": "3.0.1",
   "type": "module",
   "main": "desktop/main.mjs",
   "desktopName": "io.github.nelsonvis3.space-tasks.desktop",
@@ -13,6 +13,7 @@
     "postbuild": "node scripts/compress.mjs && node scripts/check-distribution.mjs dist",
     "preview": "vite preview",
     "desktop": "electron .",
+    "appimage": "node scripts/appimage.mjs",
     "typecheck": "tsc -b --pretty false",
     "test:xp": "node --experimental-strip-types --test --test-isolation=none tests/gamification.test.mjs",
     "test": "node --experimental-strip-types --test --test-isolation=none --test-reporter=spec tests/*.test.mjs",
